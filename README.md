@@ -47,6 +47,9 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
   - A function that can get request and response objects, operate, and trigger actions. From client, work, then server, and return
 
 - [ ] ## Describe a Resource?
+
+  - A database that is read-only which contains all the system objects in the SQL server
+
 - [ ] What can the API return to help clients know if a request was successful?
 
   - a status code with .json

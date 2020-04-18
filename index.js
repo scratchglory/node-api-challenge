@@ -1,23 +1,30 @@
 const express = require("express");
-const actionRouter = require("./data/helpers/actionRouter");
-const projectRouter = require("./data/helpers/projectRouter");
+const actionsRouter = require("./data/helpers/actionRouter");
+const projectsRouter = require("./data/helpers/projectRouter");
 
-// SERVERS
+// Middleware install
+const cors = require("cors");
+
+// Add servers
 const server = express();
-const port = 7272;
+const port = 7070;
 server.use(express.json());
 
-// MIDDLEWARE
+// adding middleware
+server.use(cors());
+server.use((error, req, res, next) => {
+  res.status(500).json({ message: "ERROR MIDDLEWARE" });
+});
 
-// HOME
+// Home
 server.get("/", (req, res) => {
   res.json({ message: "NODE API CHALLENGE" });
 });
 
 // ROUTERS
-server.use("/actions", actionRouter);
-server.use("/projects", projectRouter);
+server.use("/actions", actionsRouter);
+server.use("/projects", projectsRouter);
 
 server.listen(port, () => {
-  console.log(`== On Port ${port}`);
+  console.log(`== On Port ${port} ==`);
 });
