@@ -1,3 +1,4 @@
+// must export in order for it to work!
 const express = require("express");
 const actions = require("./actionModel");
 const router = express.Router();
@@ -20,6 +21,32 @@ router.post("/", (req, res, next) => {
       console.log(error);
       //   res.status(500).json({ message: "ERROR adding action" });
       next(error);
+    });
+});
+
+router.put("/:id", (req, res) => {
+  console.log("Action Router Put", req.params.id, req.body);
+  actions
+    .update(req.params.id, req.body)
+    .then((action) => {
+      res.status(200).json(action);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: "ERROR updating action" });
+    });
+});
+
+router.delete("/:id", (req, res) => {
+  console.log("Action Router Delete", req.params.id);
+  actions
+    .remove(req.params.id)
+    .then((action) => {
+      res.status(200).json({ message: "NUKED action" });
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).json({ message: "NUKE unavailable" });
     });
 });
 
@@ -46,4 +73,5 @@ function validateActionId() {
   };
 }
 
+// must export in order for it to work!
 module.exports = router;
